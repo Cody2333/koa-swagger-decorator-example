@@ -1,24 +1,34 @@
-import { request, summary, query, tags, params } from 'swag';
+import multer from 'koa-multer';
+import _path from 'path';
+import { request, summary, query, tags, formData, middlewares } from 'swag';
+import config from 'config';
 
+function getFileUrl(filename) {
+  return `${config.baseUrl}/file/${filename}`;
+}
 const tag = tags(['Sample']);
 
-const formData = params('formData');
+const storage = multer.diskStorage({
+  destination: _path.resolve('file/'),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+});
 
+const upload = multer({ storage });
 export default class SampleRouter {
   @request('post', '/sample')
-  @summary('sample')
+  @summary('showing upload files example using koa-multer')
   @tag
   @formData({
-    file: { type: 'file' }
+    file: { type: 'file', required: 'true', description: '上传文件，获取url' }
   })
+  @middlewares([upload.single('file')])
   @query({
     page: { type: 'number', default: 1, required: false, description: 'page number' },
     limit: { type: 'number', default: 10, required: false, description: 'return item number limit' }
   })
-  static async sample(ctx) {
-    const { page, limit } = ctx.validatedQuery;
-    console.log(ctx.request);
-
-    ctx.body = { page, limit };
+  static async upload(ctx) {
+    const file = ctx.req.file;
+    file.url = getFileUrl(file.filename);
+    ctx.body = { result: file };
   }
 }

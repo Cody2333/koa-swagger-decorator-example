@@ -1,5 +1,7 @@
 const env = process.env.NODE_ENV;
-const common = {};
+const common = {
+  baseUrl: 'http://localhost:3000'
+};
 const config = {
   develop: {
     port: 3000,
