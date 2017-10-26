@@ -1,6 +1,9 @@
 import multer from 'koa-multer';
 import _path from 'path';
-import { request, summary, query, tags, formData, middlewares } from 'swag';
+import Doc from 'swag';
+
+const { request, summary, query, tags, formData, middlewares, responses } = Doc;
+
 import config from 'config';
 
 function getFileUrl(filename) {
@@ -26,6 +29,7 @@ export default class SampleRouter {
     page: { type: 'number', default: 1, required: false, description: 'page number' },
     limit: { type: 'number', default: 10, required: false, description: 'return item number limit' }
   })
+  @responses({ 200: { description: 'file upload success' }, 500: { description: 'something wrong about server' } })
   static async upload(ctx) {
     const file = ctx.req.file;
     file.url = getFileUrl(file.filename);

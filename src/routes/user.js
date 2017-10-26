@@ -1,6 +1,6 @@
 import exception from 'class/exception';
 
-import { request, summary, body, tags, middlewares } from 'swag';
+import { request, summary, body, tags, middlewares, path, description } from 'swag';
 
 const tag = tags(['User']);
 const userSchema = {
@@ -18,6 +18,7 @@ const logTime = () => async (ctx, next) => {
 export default class UserRouter {
   @request('POST', '/user/register')
   @summary('register user')
+  @description('example of api')
   @tag
   @middlewares([logTime()])
   @body(userSchema)
@@ -44,6 +45,17 @@ export default class UserRouter {
   static async getAll(ctx) {
     const users = [{ name: 'foo' }, { name: 'bar' }];
     ctx.body = { users };
+  }
+
+  @request('get', '/user/{id}')
+  @summary('get user by id')
+  @tag
+  @path({ id: { type: 'string', required: true } })
+  static async getOne(ctx) {
+    const { id } = ctx.validatedParams;
+    console.log('id:', id);
+    const user = { name: 'foo' };
+    ctx.body = { user };
   }
 }
 
