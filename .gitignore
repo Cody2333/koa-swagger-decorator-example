@@ -47,3 +47,5 @@ influxdb
 /.idea
 
 temp/
+
+file/
