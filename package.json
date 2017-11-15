@@ -7,6 +7,7 @@
     "build": "babel src --out-dir dist",
     "serve": "node dist/main",
     "start:babel": "babel-node src/main",
+    "debug": "babel-node src/main --inspect --debug-brk --nolazy src/main",
     "start": "cross-env NODE_ENV=develop nodemon --watch src --exec npm run start:babel -L",
     "test": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js --bail -t 2000000",
     "deploy:dev": "cross-env NODE_ENV=develop pm2 start pm2.config.json",
@@ -45,7 +46,8 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "sha1": "^1.1.1",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "url": "^0.11.0"
   },
   "license": "MIT"
 }

@@ -7,31 +7,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch via NPM",
+      "name": "Launch-vai-babel-node",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run",
-        "serve"
+        "debug"
       ],
-      "sourceMaps": true
-    },
-    {
-    "name": "Launch",
-    "type": "node",
-    "request": "launch",
-    "stopOnEntry": false,
-    "args": [],
-    "program": "${workspaceRoot}/dist/main",
-    "cwd": "${workspaceRoot}",
-    "preLaunchTask": "build",
-    "runtimeExecutable": null,
-    "runtimeArgs": ["--nolazy" ],
-    "env": {
-        "NODE_ENV": "develop"
-    },
-    "console": "internalConsole",
-    "sourceMaps": true,
-    "outFiles": ["${workspaceRoot}/dist"]
+      "port":9229,
+      "env": {
+          "NODE_ENV": "develop"
+      },
+      "console": "internalConsole"
+
     }
   ]
 }
