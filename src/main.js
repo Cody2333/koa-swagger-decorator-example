@@ -4,7 +4,7 @@ import cors from 'koa-cors';
 
 import config from 'config';
 import errorHandle from 'middleware/errorHandle';
-import router from 'routes';
+import router from 'routes/index';
 
 const serve = require('koa-static');
 
