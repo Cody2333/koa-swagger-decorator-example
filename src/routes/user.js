@@ -57,5 +57,15 @@ export default class UserRouter {
     const user = { name: 'foo' };
     ctx.body = { user };
   }
+
+  @request('DELETE', '/user/{id}')
+  @summary('delete user by id')
+  @tag
+  @path({ id: { type: 'string', required: true } })
+  static async deleteOne(ctx) {
+    const { id } = ctx.validatedParams;
+    console.log('id:', id);
+    ctx.body = { msg: 'success' };
+  }
 }
 

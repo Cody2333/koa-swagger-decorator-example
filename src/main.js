@@ -18,4 +18,6 @@ app
 .use(router.routes())
 .use(router.allowedMethods());
 
-app.listen(config.port);
+app.listen(config.port, () => {
+  console.log(`App is listening on ${config.port}.`);
+});
